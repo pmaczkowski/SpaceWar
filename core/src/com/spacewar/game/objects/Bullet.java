@@ -9,10 +9,9 @@ public class Bullet {
 
     private static final int SPEED = 500;
     private static final int DEFAULT_Y = 40;
+
     private Texture texture;
-
     private Vector2 position;
-
     private boolean toRemove = false;
 
     public Bullet(float positionX) {
