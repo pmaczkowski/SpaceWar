@@ -20,12 +20,12 @@ public class MainMenuScreen implements Screen {
     private static final int EXIT_BUTTON_X = (WINDOW_WIDTH - EXIT_BUTTON_WIDTH) / 2;
     private static final int EXIT_BUTTON_Y = 100;
 
-    private SpaceWarGame game;
-
     private final Texture playButtonActive = new Texture("play_button_active.png");
     private final Texture playButtonInactive = new Texture("play_button_inactive.png");
     private final Texture exitButtonActive = new Texture("exit_button_active.png");
     private final Texture exitButtonInactive = new Texture("exit_button_inactive.png");
+
+    private SpaceWarGame game;
 
     public MainMenuScreen(SpaceWarGame game) {
         this.game = game;
@@ -38,21 +38,28 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0.15f, 0.15f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.begin();
+        SpaceWarGame.batch.begin();
         if (isPlayButtonActive()) {
             drawPlayButton(playButtonActive);
+            if (Gdx.input.isTouched()) {
+                this.dispose();
+                game.setScreen(new MainGameScreen());
+            }
         } else {
             drawPlayButton(playButtonInactive);
         }
         if (isExitButtonActive()) {
             drawExitButton(exitButtonActive);
+            if (Gdx.input.isTouched()) {
+                Gdx.app.exit();
+            }
         } else {
             drawExitButton(exitButtonInactive);
         }
-        game.batch.end();
+        SpaceWarGame.batch.end();
     }
 
     @Override
@@ -100,11 +107,11 @@ public class MainMenuScreen implements Screen {
     }
 
     private void drawPlayButton(Texture playButton) {
-        game.batch.draw(playButton, PLAY_BUTTON_X, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+        SpaceWarGame.batch.draw(playButton, PLAY_BUTTON_X, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
     }
 
     private void drawExitButton(Texture exitButton) {
-        game.batch.draw(exitButton, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+        SpaceWarGame.batch.draw(exitButton, EXIT_BUTTON_X, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
     }
 
 }
