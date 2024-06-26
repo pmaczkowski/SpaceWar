@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.spacewar.game.SpaceWarGame;
-import com.spacewar.game.entity.SpaceShip;
+import com.spacewar.game.objects.SpaceShip;
 
 
 public class MainGameScreen implements Screen {
@@ -27,6 +27,7 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         SpaceWarGame.batch.begin();
+
         spaceShip.render();
         SpaceWarGame.batch.end();
 
