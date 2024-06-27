@@ -48,7 +48,7 @@ public class SpaceShip {
         this.shipAnimations[3] = new Animation<>(ANIMATION_SPEED, shipTextures[3]);
         this.shipAnimations[4] = new Animation<>(ANIMATION_SPEED, shipTextures[4]);
 
-        collisionRect = new CollisionRect(position, SHIP_WIDTH_PIXEL, SHIP_HEIGHT_PIXEL);
+        collisionRect = new CollisionRect(position, SHIP_WIDTH, SHIP_HEIGHT);
     }
 
     public void update(float delta) {

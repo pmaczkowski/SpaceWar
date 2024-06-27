@@ -5,10 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 public class CollisionRect {
 
     private Vector2 position;
-    private int width;
-    private int height;
+    private float width;
+    private float height;
 
-    public CollisionRect(Vector2 position, int width, int height) {
+    public CollisionRect(Vector2 position, float width, float height) {
         this.position = position;
         this.width = width;
         this.height = height;
@@ -23,6 +23,11 @@ public class CollisionRect {
                 && position.y < rect.position.y + rect.height
                 && position.x + width > rect.position.x
                 && position.y + height > rect.position.y;
+    }
+
+    @Override
+    public String toString() {
+        return position.toString();
     }
 
 }

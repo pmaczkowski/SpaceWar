@@ -44,4 +44,8 @@ public class Asteroid {
     public CollisionRect getCollisionRect() {
         return collisionRect;
     }
+
+    public Vector2 getPosition() {
+        return position;
+    }
 }
