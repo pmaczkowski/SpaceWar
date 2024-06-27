@@ -27,6 +27,7 @@ public class MainGameScreen implements Screen {
     private static final float MIN_ASTEROID_SPAWN_TIME = 0.3f;
     private static final float MAX_ASTEROID_SPAWN_TIME = 0.6f;
 
+    private SpaceWarGame game;
     private SpaceShip spaceShip;
     private ArrayList<Asteroid> asteroids = new ArrayList<>();
     private ArrayList<Bullet> bullets = new ArrayList<>();
@@ -41,7 +42,8 @@ public class MainGameScreen implements Screen {
     private float asteroidSpawnTimer;
 
 
-    public MainGameScreen() {
+    public MainGameScreen(SpaceWarGame game) {
+        this.game = game;
         this.spaceShip = new SpaceShip();
         scoreFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
         score = 0;
@@ -169,6 +171,11 @@ public class MainGameScreen implements Screen {
             if (asteroid.getCollisionRect().collidesWith(spaceShip.getCollisionRect())) {
                 health -= 0.1;
                 asteroidsToRemove.add(asteroid);
+                if (health <= 0) {
+                    this.dispose();
+                    game.setScreen(new GameOverScreen(game, score));
+                    return;
+                }
             }
         }
     }

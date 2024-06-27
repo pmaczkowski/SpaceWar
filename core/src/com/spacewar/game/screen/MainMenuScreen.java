@@ -46,7 +46,7 @@ public class MainMenuScreen implements Screen {
             drawPlayButton(playButtonActive);
             if (Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new MainGameScreen());
+                game.setScreen(new MainGameScreen(game));
             }
         } else {
             drawPlayButton(playButtonInactive);

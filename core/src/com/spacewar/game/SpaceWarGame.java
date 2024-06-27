@@ -2,6 +2,7 @@ package com.spacewar.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.spacewar.game.screen.GameOverScreen;
 import com.spacewar.game.screen.MainMenuScreen;
 
 public class SpaceWarGame extends Game {
