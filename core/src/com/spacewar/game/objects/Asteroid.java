@@ -1,30 +1,28 @@
 package com.spacewar.game.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.Random;
+import com.spacewar.game.tools.CollisionRect;
 
 import static com.spacewar.game.SpaceWarGame.WINDOW_HEIGHT;
 
 public class Asteroid {
 
     private static final int SPEED = 250;
-    private static final int WIDTH = 16;
-    private static final int HEIGHT = 16;
-    private static final int DEFAULT_Y = WINDOW_HEIGHT - 20;
+    public static final int WIDTH = 16;
+    public static final int HEIGHT = 16;
 
     private Texture texture;
-    private Vector2 position;
+    private Vector2 position = new Vector2();
     private boolean toRemove = false;
+    private CollisionRect collisionRect;
 
-    private Random rand = new Random();
-
-    public Asteroid() {
-        position = new Vector2(rand.nextInt(Gdx.graphics.getWidth() - WIDTH), DEFAULT_Y);
+    public Asteroid(float positionX) {
+        this.position.x = positionX;
+        this.position.y = WINDOW_HEIGHT;
         texture = new Texture("asteroid.png");
+        collisionRect = new CollisionRect(position, WIDTH, HEIGHT);
     }
 
     public void update(float delta) {
@@ -32,13 +30,18 @@ public class Asteroid {
         if (position.y < -HEIGHT) {
             toRemove = true;
         }
+        collisionRect.move(position);
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(texture, position.x, position.y);
+        batch.draw(texture, position.x, position.y, WIDTH, HEIGHT);
     }
 
     public boolean isToRemove() {
         return toRemove;
+    }
+
+    public CollisionRect getCollisionRect() {
+        return collisionRect;
     }
 }
