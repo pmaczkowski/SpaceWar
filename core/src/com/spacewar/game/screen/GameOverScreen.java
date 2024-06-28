@@ -16,9 +16,8 @@ import static com.spacewar.game.SpaceWarGame.WINDOW_WIDTH;
 
 public class GameOverScreen implements Screen {
 
-    private static final int GAME_OVER_BANNER_WIDTH = 350;
-    private static final int GAME_OVER_BANNER_HEIGHT = 100;
-    private final int GAME_OVER_BANNER_Y = WINDOW_HEIGHT - GAME_OVER_BANNER_HEIGHT - 20;
+    private static final float GAME_OVER_BANNER_WIDTH = 350;
+    private static final float GAME_OVER_BANNER_HEIGHT = 100;
 
     private SpaceWarGame game;
     private BitmapFont scoreFont;
@@ -53,25 +52,25 @@ public class GameOverScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.begin();
-        game.batch.draw(gameOverBanner, WINDOW_WIDTH / 2 - GAME_OVER_BANNER_WIDTH / 2, WINDOW_HEIGHT - GAME_OVER_BANNER_HEIGHT - 15, GAME_OVER_BANNER_WIDTH, GAME_OVER_BANNER_HEIGHT);
+        SpaceWarGame.batch.begin();
+        SpaceWarGame.batch.draw(gameOverBanner, (WINDOW_WIDTH - GAME_OVER_BANNER_WIDTH) / 2, WINDOW_HEIGHT - GAME_OVER_BANNER_HEIGHT - 15, GAME_OVER_BANNER_WIDTH, GAME_OVER_BANNER_HEIGHT);
 
         GlyphLayout scoreLayout = new GlyphLayout(scoreFont, "Score: \n" + score, Color.WHITE, 0, Align.left, false);
         GlyphLayout highScoreLayout = new GlyphLayout(scoreFont, "Highscore: \n" + highScore, Color.WHITE, 0, Align.left, false);
 
-        scoreFont.draw(game.batch, scoreLayout, WINDOW_WIDTH / 2 - scoreLayout.width / 2, WINDOW_HEIGHT - GAME_OVER_BANNER_HEIGHT - 15 * 2);
-        scoreFont.draw(game.batch, highScoreLayout, WINDOW_WIDTH / 2 - highScoreLayout.width / 2, WINDOW_HEIGHT - GAME_OVER_BANNER_HEIGHT - scoreLayout.height - 15 * 3);
+        scoreFont.draw(SpaceWarGame.batch, scoreLayout, (WINDOW_WIDTH - scoreLayout.width) / 2, WINDOW_HEIGHT - GAME_OVER_BANNER_HEIGHT - 15 * 2);
+        scoreFont.draw(SpaceWarGame.batch, highScoreLayout, (WINDOW_WIDTH - highScoreLayout.width) / 2, WINDOW_HEIGHT - GAME_OVER_BANNER_HEIGHT - scoreLayout.height - 15 * 3);
 
         float touchX = Gdx.input.getX();
-        float touchY = WINDOW_HEIGHT - Gdx.input.getY();
+        float touchY = (float) WINDOW_HEIGHT - Gdx.input.getY();
 
         GlyphLayout tryAgainLayout = new GlyphLayout(scoreFont, "Try Again");
         GlyphLayout mainMenuLayout = new GlyphLayout(scoreFont, "Main Menu");
 
-        float tryAgainX = WINDOW_WIDTH / 2 - tryAgainLayout.width /2;
-        float tryAgainY = WINDOW_HEIGHT / 2 - tryAgainLayout.height / 2;
-        float mainMenuX = WINDOW_WIDTH / 2 - mainMenuLayout.width /2;
-        float mainMenuY = WINDOW_HEIGHT / 2 - mainMenuLayout.height / 2 - tryAgainLayout.height - 15;
+        float tryAgainX = (float) WINDOW_WIDTH / 2 - tryAgainLayout.width /2;
+        float tryAgainY = (float) WINDOW_HEIGHT / 2 - tryAgainLayout.height / 2;
+        float mainMenuX = (float) WINDOW_WIDTH / 2 - mainMenuLayout.width /2;
+        float mainMenuY = (float) WINDOW_HEIGHT / 2 - mainMenuLayout.height / 2 - tryAgainLayout.height - 15;
 
         if (touchX >= tryAgainX && touchX < tryAgainX + tryAgainLayout.width && touchY >= tryAgainY - tryAgainLayout.height && touchY < tryAgainY) {
             tryAgainLayout.setText(scoreFont, "Try Again", Color.YELLOW, 0, Align.left, false);
@@ -84,7 +83,7 @@ public class GameOverScreen implements Screen {
             //Try again
             if (touchX > tryAgainX && touchX < tryAgainX + tryAgainLayout.width && touchY > tryAgainY - tryAgainLayout.height && touchY < tryAgainY) {
                 this.dispose();
-                game.batch.end();
+                SpaceWarGame.batch.end();
                 game.setScreen(new MainGameScreen(game));
                 return;
             }
@@ -92,16 +91,16 @@ public class GameOverScreen implements Screen {
             //main menu
             if (touchX > mainMenuX && touchX < mainMenuX + mainMenuLayout.width && touchY > mainMenuY - mainMenuLayout.height && touchY < mainMenuY) {
                 this.dispose();
-                game.batch.end();
+                SpaceWarGame.batch.end();
                 game.setScreen(new MainMenuScreen(game));
                 return;
             }
         }
 
-        scoreFont.draw(game.batch, tryAgainLayout, tryAgainX, tryAgainY);
-        scoreFont.draw(game.batch, mainMenuLayout, mainMenuX, mainMenuY);
+        scoreFont.draw(SpaceWarGame.batch, tryAgainLayout, tryAgainX, tryAgainY);
+        scoreFont.draw(SpaceWarGame.batch, mainMenuLayout, mainMenuX, mainMenuY);
 
-        game.batch.end();
+        SpaceWarGame.batch.end();
 
     }
 
